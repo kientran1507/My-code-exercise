@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <math.h>
 
 bool isPrime(int n, int divisor) {
     if (n <= 1) {
@@ -17,14 +18,14 @@ bool isPrime(int n, int divisor) {
 void listPrimes(int n) {
     if (n >= 2) {
         listPrimes(n - 1);
-        if (isPrime(n, n - 1)) {
+        if (isPrime(n, sqrt(n))) {
             printf("%d ", n);
         }
     }
 }
 
 int main() {
-    int limit = 50; // Thay đổi giới hạn tùy ý
+    int limit = 100; // Thay đổi giới hạn tùy ý
     printf("Cac so nguyen to nho hon hoac bang %d la: \n", limit);
     listPrimes(limit);
     printf("\n");
