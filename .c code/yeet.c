@@ -1,103 +1,77 @@
-#include<stdio.h>
-#include<string.h>
-#include<stdlib.h>
-int n;
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_ATHLETES 100
+
 struct athlete {
-	char Name[50];
-	char Nation[50];
-	int Register[3];
-	short Pass[3];
-	int Total;
-	char Medal;
-}; 
+    char Name[50];
+    char Nation[50];
+    int Register[3];
+    short Pass[3];
+    int Total;
+};
 
-void form(){
-  printf("%-20s","Name");
-	printf("%-20s","Nation");
-	printf("%-10s","R1");
-	printf("%-10s","R2");
-	printf("%-10s","R3");
-  printf("%-10s","P1");
-	printf("%-10s","P2");
-	printf("%-10s","P3");
-	printf("\n");
-}
-void form2(){
-  printf("%-20s","Name");
-	printf("%-20s","Nation");
-	printf("%-10s","R1");
-	printf("%-10s","R2");
-	printf("%-10s","R3");
-  printf("%-10s","P1");
-	printf("%-10s","P2");
-	printf("%-10s","P3");
-  printf("%-10s","Total");
-  printf("\n");
-}
-typedef struct athlete ath;
-void sovdv(ath *a){
-    printf("Nhap so van dong vien dang ky : ");
-    scanf("%d",&n);
-    while(n<=0||n>100){
-    	printf("Nhap lai so van dong vien :");
-    	scanf("%d",&n);
-      }
-}
-void nhapthongtin(ath *a){
-	int i,j;
-	for(i=0;i<n;i++){
-		printf("Nhap thong tin cua van dong vien thu %d\n",i+1);
-		printf("Ten cua van dong vien:");
-		fflush(stdin);
-		fgets(a[i].Name,32,stdin);
-    int size=strlen(a[i].Name)-1;
-		a[i].Name[size]='\0';
-		printf("Quoc tich cua van dong vien:");
-		fflush(stdin);
-		scanf("%s",a[i].Nation);
-    for(j=0;j<3;j++){
-			printf("Nhap R%d cua van dong vien thu %d : ",j+1,i+1);
-			scanf("%d",&a[i].Register[j]);
-			printf("Nhap P%d cua van dong vien thu %d : ",j+1,i+1);
-			scanf("%d",&a[i].Pass[j]);
-    }
-  }
+typedef struct athlete Athlete;
+
+void printHeader() {
+    printf("%-20s%-20s%-10s%-10s%-10s%-10s%-10s%-10s\n", "Name", "Nation", "R1", "R2", "R3", "P1", "P2", "P3");
 }
 
-void inthongtin(ath *a){
-  int i,j;
-  form();
-	for(i=0;i<n;i++){
-		printf("%-20s",a[i].Name);
-		printf("%-20s",a[i].Nation);
-    for(j=0;j<3;j++){
-		printf("%-10d",a[i].Register[j]);
-		printf("%-10d",a[i].Pass[j]);
-    }
-    printf("\n");
-	}
+void printAthleteInfo(Athlete *a) {
+    printf("%-20s%-20s%-10d%-10d%-10d%-10d%-10d%-10d\n", a->Name, a->Nation, a->Register[0], a->Register[1], a->Register[2], a->Pass[0], a->Pass[1], a->Pass[2]);
 }
 
-void tinhtong(ath *a){
-  int i,j;
-  form2();
-	for(i=0;i<n;i++){
-		printf("%-20s",a[i].Name);
-		printf("%-20s",a[i].Nation);
-    for(j=0;j<3;j++){
-		printf("%-10d",a[i].Register[j]);
-		printf("%-10d",a[i].Pass[j]);
-    if(a[i].Pass[j]==1)
-      a[i].Total+=a[i].Register[j];
+void calculateTotal(Athlete *a, int n) {
+    for (int i = 0; i < n; i++) {
+        a[i].Total = 0;
+        for (int j = 0; j < 3; j++) {
+            if (a[i].Pass[j] == 1) {
+                a[i].Total += a[i].Register[j];
+            }
+        }
     }
-    printf("%-10d",a[i].Total);
-    printf("\n");
-	}
 }
-int main(){
-	ath a[22];
-  sovdv(a);
-	nhapthongtin(a);
-  inthongtin(a);
-  tinhtong(a);
+
+int main() {
+    int n;
+    printf("Enter the number of athletes (1-100): ");
+    scanf("%d", &n);
+
+    if (n <= 0 || n > MAX_ATHLETES) {
+        printf("Invalid number of athletes. Please enter a number between 1 and 100.\n");
+        return 1;
+    }
+
+    Athlete athletes[MAX_ATHLETES];
+
+    for (int i = 0; i < n; i++) {
+        printf("Enter information for athlete %d:\n", i + 1);
+        printf("Name: ");
+        scanf(" %[^\n]s", athletes[i].Name);  // Read the name with spaces.
+        printf("Nation: ");
+        scanf("%s", athletes[i].Nation);
+        for (int j = 0; j < 3; j++) {
+            printf("Enter R%d for athlete %d: ", j + 1, i + 1);
+            scanf("%d", &athletes[i].Register[j]);
+            printf("Enter P%d for athlete %d: ", j + 1, i + 1);
+            scanf("%hd", &athletes[i].Pass[j]);
+        }
+    }
+
+    printf("\nAthlete Information:\n");
+    printHeader();
+    for (int i = 0; i < n; i++) {
+        printAthleteInfo(&athletes[i]);
+    }
+
+    calculateTotal(athletes, n);
+
+    printf("\nAthlete Information with Totals:\n");
+    printHeader();
+    for (int i = 0; i < n; i++) {
+        printAthleteInfo(&athletes[i]);
+        printf("%-10d\n", athletes[i].Total);
+    }
+
+    return 0;
 }
