@@ -1,0 +1,59 @@
+Student Name: Alice Johnson
+Email: alice.johnson@example.com
+
+Student Name: Bob Smith
+Email: bob.smith@example.com
+
+Student Name: Emily Davis
+Email: emily.davis@example.com
+
+Student Name: David Wilson
+Email: david.wilson@example.com
+
+Student Name: Olivia Brown
+Email: olivia.brown@example.com
+
+Student Name: James Lee
+Email: james.lee@example.com
+
+Student Name: Sophia Garcia
+Email: sophia.garcia@example.com
+
+Student Name: Michael Rodriguez
+Email: michael.rodriguez@example.com
+
+Student Name: Ava Martinez
+Email: ava.martinez@example.com
+
+Student Name: Liam Harris
+Email: liam.harris@example.com
+
+Student Name: Mia Turner
+Email: mia.turner@example.com
+
+Student Name: Ethan White
+Email: ethan.white@example.com
+
+Student Name: Harper Jackson
+Email: harper.jackson@example.com
+
+Student Name: Noah Miller
+Email: noah.miller@example.com
+
+Student Name: Isabella Moore
+Email: isabella.moore@example.com
+
+Student Name: Oliver Anderson
+Email: oliver.anderson@example.com
+
+Student Name: Amelia Hall
+Email: amelia.hall@example.com
+
+Student Name: Benjamin Young
+Email: benjamin.young@example.com
+
+Student Name: Chloe Lewis
+Email: chloe.lewis@example.com
+
+Student Name: Elijah King
+Email: elijah.king@example.com
