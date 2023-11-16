@@ -166,22 +166,22 @@ int main() {
             case 3:
                 printf("Enter student name: ");
                 fgets(name, sizeof(name), stdin);
-                name[strcspn(name, "\n")] = 0;  // Remove the newline character
+                name[strcspn(name, "\n")] = 0; 
                 printf("Enter student email: ");
                 fgets(email, sizeof(email), stdin);
-                email[strcspn(email, "\n")] = 0;  // Remove the newline character
+                email[strcspn(email, "\n")] = 0;  
                 addStudent(name, email);
                 break;
             case 4:
                 printf("Enter student name to delete: ");
                 fgets(name, sizeof(name), stdin);
-                name[strcspn(name, "\n")] = 0;  // Remove the newline character
+                name[strcspn(name, "\n")] = 0; 
                 deleteStudent(name);
                 break;
             case 5:
                 printf("Enter student name or email to search: ");
                 fgets(query, sizeof(query), stdin);
-                query[strcspn(query, "\n")] = 0;  // Remove the newline character
+                query[strcspn(query, "\n")] = 0; 
                 searchStudent(query);
                 break;
             case 6:
