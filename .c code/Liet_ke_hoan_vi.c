@@ -29,7 +29,7 @@ void Try(int i) {
 }
 
 int main() {
-    n = 5; 
+    scanf("%d", &n); 
     for (int v = 1; v <= n; v++) {
         m[v] = 0;
     }
