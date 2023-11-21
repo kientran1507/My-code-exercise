@@ -43,7 +43,7 @@ int Try(int k) {
 
 int main() {
     cin >> n >> M;
-
+ 
     a.resize(n);
     for (int i = 0; i < n; ++i) {
         cin >> a[i];
