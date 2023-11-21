@@ -8,7 +8,7 @@ int x[MAX_N];
 
 void printSolution() {
     for (int i = 1; i <= n; i++) {
-        printf("%d ", x[i]);
+        printf("%d", x[i]);
     }
     printf("\n");
 }
