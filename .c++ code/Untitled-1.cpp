@@ -28,6 +28,7 @@ int main() {
     // Find the maximum value in the dp array, which represents the highest subsequence weight
     int maxWeight = 0;
     for (int i = 0; i < n; ++i) {
+        if (dp[i] % 2 == 0)
         maxWeight = max(maxWeight, dp[i]);
     }
 
