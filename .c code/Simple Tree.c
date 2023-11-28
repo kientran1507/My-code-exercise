@@ -1,5 +1,6 @@
 #include <stdio.h> 
-
+#include <stdlib.h>
+#include <string.h>
 typedef struct Node{
     char name[256];
     struct Node* leftMostChild; 
@@ -38,6 +39,21 @@ void addChild(char*name, char* child){
     r->leftMostChild = addLast(r->leftMostChild, child);
 }
 
+void processAddChild() {
+    char parentName[256];
+    char childName[256];
+
+    printf("Enter parent node name: ");
+    scanf("%s", parentName);
+
+    printf("Enter child node name: ");
+    scanf("%s", childName);
+
+    addChild(parentName, childName);
+    printf("Child %s added to parent %s.\n", childName, parentName);
+}
+
+
 void printTree(Node* r){ 
     if(r == NULL) return; 
     printf("%s: ", r->name);
@@ -53,6 +69,12 @@ void printTree(Node* r){
         p = p->rightSibling;
     }
 }
+
+void processPrint() {
+    printf("Printing tree:\n");
+    printTree(root);
+}
+
 
 void printTreeF(Node* r, FILE* f){ 
     if(r == NULL) return; 
@@ -150,6 +172,53 @@ void freeTree(Node* r){
     printf("free node %s\n", r->name); 
     free(r);
     r = NULL;
+}
+
+void processLoad() {
+    char filename[256];
+    printf("Enter the filename to load: ");
+    scanf("%s", filename);
+
+    FILE* file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("Error opening file %s.\n", filename);
+        return;
+    }
+
+    root = NULL;
+
+    while (1) {
+        char nodeName[256];
+        if (fscanf(file, "%s", nodeName) != 1) {
+            break;
+        }
+
+        if (strcmp(nodeName, "$") == 0) {
+            break;
+        }
+
+        Node* newNode = makeNode(nodeName);
+
+        newNode->leftMostChild = NULL;
+        newNode->rightSibling = NULL;
+
+        if (root == NULL) {
+            root = newNode;
+        } else {
+            Node* parent = find(root, nodeName);
+            if (parent != NULL) {
+                parent->leftMostChild = addLast(parent->leftMostChild, nodeName);
+            } else {
+                printf("Error: Parent node not found for child %s\n", nodeName);
+                freeTree(root);
+                fclose(file);
+                return;
+            }
+        }
+    }
+
+    fclose(file);
+    printf("Tree loaded from %s.\n", filename);
 }
 
 void main(){
