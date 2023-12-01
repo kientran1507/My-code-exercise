@@ -1,9 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int MAXN = 100005; // Set the maximum size of the array
+const int MAXN = 1000000; // Set the maximum size of the array
 
-int a[MAXN], temp[MAXN];
+long long int a[MAXN], temp[MAXN];
 int n;
 const int MOD = 1000000007; // Define the MOD value
 
