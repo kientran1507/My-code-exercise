@@ -60,15 +60,14 @@ int check(char* s) {
 }
 
 int main() {
-    char input[100];
+    char input[1000];
 
-    printf("Nhap vao xau mo dong ngoac: ");
-    scanf("%99[^\n]", input);
+    scanf("%999[^\n]", input);
 
     if (check(input)) {
-        printf("Xau hop le\n");
+        printf("1\n");
     } else {
-        printf("Xau khong hop le\n");
+        printf("0\n");
     }
 
     return 0;
