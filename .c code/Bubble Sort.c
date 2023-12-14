@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <time.h>
 
 void bubbleSort(int A[], int N){
     // Index tu 0 den N-1
@@ -17,19 +18,25 @@ void bubbleSort(int A[], int N){
 }
 
 int main(void){
+    clock_t start, end;
+    double cpu_time_used;
     int n;
-    int A[100];
+    int A[100006];
     
     scanf("%d", &n);
     for (int i = 0; i < n; i++){
         scanf("%d", &A[i]);
     }
-
+    start = clock();
     bubbleSort(A, n);
+    end = clock();
+
+    cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+    
 
     for (int i = 0; i < n; i++){
         printf("%d ", A[i]);
     }
-
+    printf("\nTime taken: %f seconds\n", cpu_time_used);
     return 0;
 }
