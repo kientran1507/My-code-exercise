@@ -25,7 +25,7 @@ int main(void){
         scanf("%d", &A[i]);
     }
     start = clock();
-    bubbleSort(A, n);
+    selectionSort(A, n);
     end = clock();
 
     cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
