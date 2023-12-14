@@ -37,7 +37,7 @@ void mergeSort(int A[], int L, int R){
 
 int main(void){
     int n;
-    int A[100];
+    int A[100006];
     
     scanf("%d", &n);
     for (int i = 0; i < n; i++){
