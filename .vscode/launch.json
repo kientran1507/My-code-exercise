@@ -1,6 +1,12 @@
 {
     "configurations": [
-        
+        {
+            "type": "java",
+            "name": "FrameTest",
+            "request": "launch",
+            "mainClass": "FrameTest",
+            "projectName": ""
+        },
         {
             "name": "C/C++: g++.exe build and debug active file",
             "type": "cppdbg",
