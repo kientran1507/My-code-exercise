@@ -57,10 +57,9 @@ int main() {
         int year, month, day;
         generateRandomDate(&year, &month, &day);
         fprintf(file, "%04d-%02d-%02d\n", year, month, day);
-
-        fprintf(file, "#\n"); // Dòng cuối cùng của mỗi hồ sơ
     }
-
+    fprintf(file, "#\n"); // Dòng cuối cùng của hồ sơ
+    
     // Đóng tệp
     fclose(file);
 
