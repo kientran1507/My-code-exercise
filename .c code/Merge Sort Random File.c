@@ -77,14 +77,8 @@ int main() {
         return 1; // Kết thúc chương trình với mã lỗi
     }
 
-    // Đếm số lượng hồ sơ trong file
-    int count = 0;
-    char ch;
-    while ((ch = fgetc(file)) != EOF) {
-        if (ch == '#') {
-            count++;
-        }
-    }
+    
+    int count = 10; //Số lượng hồ sơ trong file
 
     // Di chuyển về đầu tệp
     rewind(file);
@@ -94,8 +88,6 @@ int main() {
     for (int i = 0; i < count; i++) {
         fscanf(file, "%s %s %s", arr[i].ho, arr[i].tenDem, arr[i].ten);
         fscanf(file, "%d-%d-%d", &arr[i].namSinh, &arr[i].thangSinh, &arr[i].ngaySinh);
-        // Đọc dòng cuối cùng
-        fscanf(file, "#");
     }
 
     // Đóng tệp
@@ -117,10 +109,9 @@ int main() {
     for (int i = 0; i < count; i++) {
         fprintf(file, "%s %s %s\n", arr[i].ho, arr[i].tenDem, arr[i].ten);
         fprintf(file, "%04d-%02d-%02d\n", arr[i].namSinh, arr[i].thangSinh, arr[i].ngaySinh);
-        if (i < count - 1) {
-            fprintf(file, "#\n"); // Dòng cuối cùng của mỗi hồ sơ (trừ hồ sơ cuối cùng)
-        }
+            
     }
+    fprintf(file, "#\n"); // Dòng cuối cùng của hồ sơ
 
     // Đóng tệp
     fclose(file);
