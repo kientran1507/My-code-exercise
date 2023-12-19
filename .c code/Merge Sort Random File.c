@@ -97,7 +97,7 @@ int main() {
     mergeSort(arr, 0, count - 1);
 
     // Mở tệp để ghi thông tin đã sắp xếp
-    file = fopen("ho_so_sapxep.txt", "w");
+    file = fopen("ho_so_sapxep_mergesort.txt", "w");
 
     // Kiểm tra xem tệp có mở thành công không
     if (file == NULL) {
