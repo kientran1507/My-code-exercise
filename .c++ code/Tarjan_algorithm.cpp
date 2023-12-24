@@ -8,8 +8,8 @@ vector<int> A[N];
 int low[N], num[N];
 bool visited[N];
 int t;
-int bridges = 0;
-int articulationPoints = 0;
+vector<pair<int, int>> bridges;
+int a; // articulation points
 
 void input() {
     ios_base::sync_with_stdio(false);
@@ -24,28 +24,27 @@ void input() {
     }
 }
 
-void dfs(int u, int pu) {
+void dfs(int s, int ps) {
     t++;
-    num[u] = t;
-    low[u] = num[u];
-    visited[u] = true;
+    num[s] = t;
+    low[s] = num[s];
+    visited[s] = true;
 
-    int children = 0;
-
-    for (int i = 0; i < A[u].size(); i++) {
-        int v = A[u][i];
-        if (v == pu) continue;
+    for (int i = 0; i < A[s].size(); i++) {
+        int v = A[s][i];
+        if (v == ps) continue;
         if (visited[v]) {
-            low[u] = min(low[u], num[v]);
+            low[s] = min(low[s], num[v]);
         } else {
-            children++;
-            dfs(v, u);
-            low[u] = min(low[u], low[v]);
-            if ((pu > 0 && low[v] >= num[u]) || (pu == 0 && children > 0)) {
-                articulationPoints++;
+            dfs(v, s);
+            low[s] = min(low[s], low[v]);
+            if (low[v] > num[s]){
+                // discovered a bridge (s, v)
+                bridges.push_back(make_pair(s, v));
             }
-            if (low[v] > num[u]) {
-                bridges++;
+            if (ps > -1 && low[v] >= num[s]){
+                // discovered an articulation point
+                a++;
             }
         }
     }
@@ -60,18 +59,20 @@ void init() {
 void solve() {
     init();
     t = 0;
-    bridges = 0;
-    articulationPoints = 0;
-    for (int u = 1; u <= n; u++) {
-        if (!visited[u]) {
-            dfs(u, -1);
+    for(int s = 1; s <= n; s++){
+        if (!visited[s]) {
+            dfs(s, -1);
         }
     }
+    //cout << "bridges = ";
+    //for (int i = 0; i < bridges.size(); i++){
+        //cout << "(" << bridges[i].first << "," << bridges[i].second << ")";
+    //}
+    cout << a << " " << bridges.size() << endl;
 }
 
 int main() {
     input();
     solve();
-    cout << articulationPoints << " " << bridges << endl;
-    return 0;
+
 }
