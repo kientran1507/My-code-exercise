@@ -19,14 +19,23 @@ vector<Segment> segments;
 vector<int> adj[MAXN];
 bool visited[MAXN];
 
+int maxDepth;
+
 // DFS to find connected components
-void dfs(int u) {
+void dfs(int u, int depth, int start) {
     visited[u] = true;
+    maxDepth = max(maxDepth, depth);
+
     for (int v : adj[u]) {
+        if (v == start && depth >= 2) {
+            maxDepth = max(maxDepth, depth + 1); // +1 to account for the edge from v back to start
+            continue;
+        }
         if (!visited[v]) {
-            dfs(v);
+            dfs(v, depth + 1, start);
         }
     }
+    visited[u] = false;  // Reset the visited status for other paths
 }
 
 // Check for cycles starting from u
@@ -81,7 +90,7 @@ int main() {
             int components = 0;
             for (int i = 0; i < points.size(); ++i) {
                 if (!visited[i]) {
-                    dfs(i);
+                    dfs(0, 0, i);
                     components++;
                 }
             }
@@ -101,12 +110,9 @@ int main() {
                 continue;
             }
             memset(visited, false, sizeof(visited));
-            if (hasCycle(startIndex, -1, startIndex, 0)) {
-                cout << "Invalid Cycle Detection" << endl;
-            } else {
-                // Since we are counting edges, the answer is one less than the number of nodes in the cycle
-                cout << adj[startIndex].size() << endl;
-            }
+            maxDepth = 0;
+            dfs(startIndex, 0, startIndex);
+            cout << maxDepth << endl;
         }
     }
     return 0;
