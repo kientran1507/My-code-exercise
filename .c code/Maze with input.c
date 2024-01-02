@@ -15,6 +15,7 @@ int nodeCount = 0; // Updated variable name
 int A[MAX][MAX];
 int n, m;
 int r0, c0;
+int r1, c1;
 int visited[MAX][MAX];
 
 const int dr[4] = {1, -1, 0, 0};
@@ -59,7 +60,7 @@ Node* popQueue() {
 }
 
 void input() {
-    scanf("%d%d%d%d", &n, &m, &r0, &c0);
+    scanf("%d%d%d%d%d%d", &n, &m, &r0, &c0, &r1, &c1);
     for (int i = 1; i <= n; i++) {
         for (int j = 1; j <= m; j++) {
             scanf("%d", &A[i][j]);
@@ -72,7 +73,7 @@ int legal(int row, int col) {
 }
 
 int target(int row, int col) {
-    return row < 1 || row > n || col < 1 || col > m;
+    return row == r1 && col == c1;
 }
 
 void finalize() {
