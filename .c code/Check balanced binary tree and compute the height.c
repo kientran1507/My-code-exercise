@@ -2,81 +2,39 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct Node {
+typedef struct Node {
     int id;
     struct Node* left;
     struct Node* right;
-};
+} Node;
 
-struct Node* createNode(int value) {
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-    newNode->id = value;
+Node* createNode(int id) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->id = id;
     newNode->left = newNode->right = NULL;
     return newNode;
 }
 
-struct Node* MakeRoot(struct Node* root, int value) {
-    root = createNode(value);
-    return root;
+Node* findNode(Node* root, int id) {
+    if (root == NULL) return NULL;
+    if (root->id == id) return root;
+    Node* left = findNode(root->left, id);
+    if (left) return left;
+    return findNode(root->right, id);
 }
 
-// Function to find a node with a specific id in the tree using iterative level-order traversal
-struct Node* findNode(struct Node* root, int id) {
-    if (root == NULL) {
-        return NULL;
+void addLeft(Node* root, int childID, int parentID) {
+    Node* parent = findNode(root, parentID);
+    if (parent && !parent->left) {
+        parent->left = createNode(childID);
     }
-
-    struct Node* current;
-    struct Node* queue[50000];  // Assuming the maximum number of nodes is 50000
-    size_t front = 0, rear = 0; // Use size_t for indices
-
-    queue[rear++] = root;
-
-    while (front < rear) {
-        current = queue[front++];
-
-        if (current->id == id) {
-            return current;
-        }
-
-        if (current->left != NULL) {
-            queue[rear++] = current->left;
-        }
-
-        if (current->right != NULL) {
-            queue[rear++] = current->right;
-        }
-    }
-
-    return NULL;
 }
 
-struct Node* AddLeft(struct Node* root, int u, int v) {
-    struct Node* parent = findNode(root, v);
-
-    if (parent == NULL) {
-        // The parent node doesn't exist, create it
-        root = createNode(v);
-        parent = root;
+void addRight(Node* root, int childID, int parentID) {
+    Node* parent = findNode(root, parentID);
+    if (parent && !parent->right) {
+        parent->right = createNode(childID);
     }
-
-    parent->left = createNode(u);
-
-    return root;
-}
-
-struct Node* AddRight(struct Node* root, int u, int v) {
-    struct Node* parent = findNode(root, v);
-
-    if (parent == NULL) {
-        // The parent node doesn't exist, create it
-        root = createNode(v);
-        parent = root;
-    }
-
-    parent->right = createNode(u);
-
-    return root;
 }
 
 
@@ -108,16 +66,15 @@ int main() {
         if (command[0] == '*') {
             break;
         }
-
         if (strcmp(command, "MakeRoot") == 0) {
             scanf("%d", &u);
-            root = MakeRoot(root, u);
+            root = createNode(u);
         } else if (strcmp(command, "AddLeft") == 0) {
             scanf("%d %d", &u, &v);
-            root = AddLeft(root, u, v);
+            addLeft(root, u, v);
         } else if (strcmp(command, "AddRight") == 0) {
             scanf("%d %d", &u, &v);
-            root = AddRight(root, u, v);
+            addRight(root, u, v);
         }
     }
 
