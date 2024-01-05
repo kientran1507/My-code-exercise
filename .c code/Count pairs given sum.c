@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX 100001
+#define MAX 1000001
 
 int n;
 int b;
